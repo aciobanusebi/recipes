@@ -1,3 +1,4 @@
+#' @export
 step_my_rm <- function(recipe,
                     ...,
                     role = NA,
