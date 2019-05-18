@@ -1,4 +1,45 @@
+    
+#' General Variable Filter
+#'
+#' `step_rm` creates a *specification* of a recipe step
+#'  that will remove variables based on their name, type, or role.
+#'
+#' @inheritParams step_center
+#' @param ... One or more selector functions to choose which
+#'  variables that will evaluated by the filtering bake. See
+#'  [selections()] for more details. For the `tidy`
+#'  method, these are not currently used.
+#' @param role Not used by this step since no new variables are
+#'  created.
+#' @param removals A character string that contains the names of
+#'  columns that should be removed. These values are not determined
+#'  until [prep.recipe()] is called.
+#' @return An updated version of `recipe` with the new step
+#'  added to the sequence of existing steps (if any). For the
+#'  `tidy` method, a tibble with columns `terms` which
+#'  is the columns that will be removed.
+#' @keywords datagen
+#' @concept preprocessing variable_filters
 #' @export
+#' @examples
+#' data(biomass)
+#'
+#' biomass_tr <- biomass[biomass$dataset == "Training",]
+#' biomass_te <- biomass[biomass$dataset == "Testing",]
+#'
+#' rec <- recipe(HHV ~ carbon + hydrogen + oxygen + nitrogen + sulfur,
+#'               data = biomass_tr)
+#'
+#' library(dplyr)
+#' smaller_set <- rec %>%
+#'   step_rm(contains("gen"))
+#'
+#' smaller_set <- prep(smaller_set, training = biomass_tr)
+#'
+#' filtered_te <- bake(smaller_set, biomass_te)
+#' filtered_te
+#'
+#' tidy(smaller_set, number = 1)
 step_my_rm <- function(recipe,
                     ...,
                     role = NA,
