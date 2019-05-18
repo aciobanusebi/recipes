@@ -206,7 +206,6 @@ prep.step_pca <- function(x, training, info = NULL, ...) {
 #' @importFrom tibble as_tibble
 #' @export
 bake.step_pca <- function(object, new_data, ...) {
-  print("BAKE")
   pca_vars <- rownames(object$res$rotation)
   comps <- predict(object$res, newdata = new_data[, pca_vars])
   comps <- comps[, 1:object$num_comp, drop = FALSE]
